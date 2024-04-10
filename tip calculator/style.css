@@ -1,0 +1,271 @@
+@import url("@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap');");
+
+body {
+  font-family: "Space Mono", monospace;
+  font-weight: 700;
+  line-height: normal;
+  display: flex;
+  width: 375px;
+  padding-top: 50px;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 40.864px;
+  background: #c5e4e7;
+  margin: auto;
+}
+
+label {
+  color: #5e7a7d;
+  font-family: Space Mono;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.card {
+  width: 375px;
+  border-radius: 25px 25px 0px 0px;
+  background: #fff;
+  box-shadow: 0px 32px 43px 0px rgba(79, 166, 175, 0.2);
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  margin: auto;
+  padding: 25px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+label,
+input,
+button {
+  font-family: "Space Mono", monospace !important;
+}
+
+.label {
+  margin-bottom: 10px;
+}
+
+#green {
+  cursor: pointer;
+  background-image: url("images/icon-dollar.svg");
+  background-repeat: no-repeat;
+  background-position: 10px center;
+}
+
+#soldier {
+  cursor: pointer;
+  background-image: url("images/icon-person.svg");
+  background-repeat: no-repeat;
+  background-position: 10px center;
+}
+
+input {
+  width: 311px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: #f3f9fa;
+  border: none;
+  color: #00474b;
+  text-align: right;
+  font-family: Space Mono;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  padding: 0 10px;
+}
+
+.select-tip {
+  margin-top: 30px;
+}
+
+.select-btn {
+  width: 311px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.select-btn button {
+  width: 146.631px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: #00474b;
+  border: none;
+  color: #fff;
+  text-align: center;
+  font-family: Space Mono;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin: auto;
+}
+
+.select-btn button:hover {
+  background-color: #26c2ae;
+  cursor: pointer;
+}
+
+.select-btn button p:active {
+  color: orangered;
+}
+
+#custom-tip {
+  width: 126px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  border: none;
+}
+
+.input {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.people {
+  width: 311px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: #f3f9fa;
+  border: none;
+  margin-top: 10px;
+}
+
+.result-container {
+  width: 327px;
+  height: 320px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  background-color: #00474b;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+
+.tip-amount {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 25px 0 25px;
+}
+
+.info {
+  white-space: pre-line;
+  color: #fff;
+  font-family: Space Mono;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.info span {
+  color: #7f9d9f;
+  font-family: Space Mono;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.total-amount {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 25px 0 25px;
+}
+
+.result {
+  color: #26c2ae;
+  text-align: right;
+  font-family: Space Mono;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.667px;
+}
+
+.reset {
+  border: none;
+  width: 281px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: #26c2ae;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.reset-section .reset {
+  color: #00474b;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.card {
+  width: 920px;
+  flex-shrink: 0;
+  border-radius: 25px 25px 25px 25px;
+  flex-direction: row;
+  gap: 0px;
+  margin: 0%;
+}
+
+.input-container {
+  width: 379px;
+  flex-shrink: 0;
+  gap: 20px;
+}
+
+.input {
+  gap: 10px;
+}
+
+.select-tip {
+  margin-top: 0px;
+}
+
+.input {
+  margin-top: 10px;
+}
+
+.result-container {
+  width: 413px;
+  height: 417px;
+  flex-shrink: 0;
+  padding: 40px;
+}
+
+.people {
+  margin-top: 0px;
+}
+
+.reset-section {
+  height: 48px;
+  align-items: center;
+  margin: auto;
+}
+
+.reset {
+  margin: auto;
+  margin-bottom: 20px;
+}
