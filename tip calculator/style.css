@@ -1,240 +1,88 @@
-@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+`use strict`;
+let bill;
+let people;
+let tipAmount;
+let total;
+let percentboxes = document.querySelectorAll(`.tip`);
+let firstClick = false;
+let clicked;
+let tipPercent;
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: space mono;
+function addError(x, y) {
+  document.querySelector(x).textContent = `Cant be zero...`;
+  document.querySelector(y).style.border = `2px red solid`;
+}
+function removeError(x, y) {
+  document.querySelector(x).textContent = ``;
+  document.querySelector(y).style.border = `none`;
+}
+for (let i = 0; i < percentboxes.length - 1; i++) {
+  percentboxes[i].addEventListener(`click`, (event) => {
+    document.querySelector(`#tip-input`).value = "";
+
+    tipPercent = Number(event.target.value);
+    calcTip();
+    changeBG(event);
+  });
 }
 
-
-
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+document.querySelector(`#tip-input`).addEventListener(`input`, (event) => {
+  if (firstClick) {
+    clicked.classList.remove(`clicked`);
+  }
+  tipPercent = Number(event.target.value);
+  calcTip();
+});
+function calcTip() {
+  bill = Number(document.querySelector(`#bill`).value);
+  people = Math.floor(Number(document.querySelector(`#people`).value));
+  document.querySelector(`#people`).value = people;
+  error();
+  if (bill > 0 && people > 0) {
+    if (tipPercent > 0 && tipPercent <= 100) {
+      let tip = (bill * tipPercent) / 100;
+      tipAmount = (tip / people).toFixed(3);
+      total = ((bill + tip) / people).toFixed(3);
+      document.querySelector(`#valuetip`).textContent = `$` + tipAmount;
+      document.querySelector(`#valuetotal`).textContent = `$` + total;
     }
-
-body {
-    display: flex;
-    flex-direction: column;    
-    gap: 40.9px;
-    /* padding-top: 50px; */
-    background-color: #c5e4e7;
-    min-width: 375px;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;    
-}
-.logo {
-    text-align: center;
-    width: 86.7px;
-    height: 53.10px;
+  }
 }
 
-.main {
-    border-radius: 25px;
-    box-shadow: 0 32px 43px 0 rgba(79, 166, 175, 0.2);
-    padding: 32px;
-    background-color: #ffffff;
-    overflow: hidden;
-    /* height: 100vh;    */
-}
-.calculation {
-    display: flex;
-    flex-direction: column;
-    
-}
-
-
-.label {
-  font-size: 16px;
-  font-weight: bold;
-  text-align: left;
-  color: #5e7a7d;  
-  margin-top: 16px;
+function reset() {
+  document.querySelector(`#bill`).value = ``;
+  document.querySelector(`#people`).value = ``;
+  document.querySelector(`#tip-input`).value = ``;
+  document.querySelector(`#valuetip`).textContent = `$0.00`;
+  document.querySelector(`#valuetotal`).textContent = `$0.00`;
+  if (firstClick) {
+    clicked.classList.remove(`clicked`);
+  }
+  firstClick = false;
+  removeError("#red-text1", "#bill");
+  removeError("#red-text2", "#people");
 }
 
-.label1, .number-of-people {
-    margin-top: 60px;
+function error() {
+  bill = Number(document.querySelector(`#bill`).value);
+  people = Number(document.querySelector(`#people`).value);
+  if (bill <= 0) {
+    addError("#red-text1", "#bill");
+  } else if (bill > 0) {
+    removeError("#red-text1", "#bill");
+  }
+  if (people == 0) {
+    addError("#red-text2", "#people");
+  } else if (people > 0) {
+    removeError("#red-text2", "#people");
+  }
 }
 
-.people-div, .bill-div {
-    position: relative;
-}
-
-
-
-.bill, .people {
-    width: 311px;
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    left: 25px;  
-}
-
-.seleqt-tip {
-    position: relative;
-    display: grid;
-    grid-template-columns: 146.6px 146.6px;
-    grid-template-rows: 48px 48px;
-    gap: 16px;
-    margin-top: 16.6px;
-}
-
-.tip {
-    border: none;
-    border-radius: 5px;
-  background-color: #00474b;
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  color: #fff;
-  cursor: pointer;
-}
-
-.tip:hover {
-    background-color: #9fe8df;
-    color: #00474b;
-}
-
-#inputTip:hover, .bill-amount input:hover {
-    border: solid 2px #26c2ae;
-    cursor: pointer;
-}
-
-
-
-.dolar {
-    width: 9.8px;
-    height: 15.5px;
-    position: absolute;
-    left: 20px;
-    top: 15px;
-}
-.person {
-    width: 13px;
-    height: 16px;
-    position: absolute;
-    left: 20px;
-    top: 15px
-}
-
-input {
-    padding-right: 17.5px;
-    text-align: right;
-    color: #00474b;
-    font-size: 24px;
-    font-weight: bold;
-    background-color: #f3f9fa;
-    border-radius: 5px;
-    border: none;
-     margin-top: 6px;
-}
-
-#inputTip {
-    text-align: center;
-    border-radius: 5px;
-    background-color: #f3f9fa;
-    color: #547878;
-}
-
-
-
-::placeholder {
-    opacity: 35%;
-}
-
-input:hover {
-    color: #00474b;
-}
-
-.result {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    border-radius: 15px;
-    background-color: #00474b;
-    padding: 37px 22px 24px;
-    margin-top: 32px;
-}
-
-.amount, .total {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.amount p, .total p {
-    font-size: 16px;
-    font-weight: bold;
-    text-align: left;
-    color: #fff;   
-}
-
-.amount span, .total span {
-    font-size: 13px;
-    font-weight: bold;
-    text-align: left;
-    color: #7f9d9f;
-  }  
-
-  .amount h2, .total h2,  .total h2 span, .amount h2 span{
-    font-size: 32px;
-    font-weight: bold;
-    text-align: right;
-    color: #26c2ae;
-    letter-spacing: -1px;
-  }  
-
-.reset {
-    width: 281px;
-    margin: 32px 0 0;
-    padding: 9px 32px 9px 33px;
-    border-radius: 5px;
-    font-size: 20px;
-  font-weight: bold;
-    background-color: #0d686d;
-    cursor: pointer;
-}
-
-.reset:hover {
-    background-color: #9fe8df;
-}
-
-
-
-
-
-@media screen and (min-width: 1440px) {
-    body {
-        /* padding: 163px 260px 239px; */
-        gap: 87.8px;
-    }
-    .main {
-        display: flex;
-        flex-direction: row;
-      padding: 32px 32px 32px 48px;
-      gap: 130px;
-    }
-
-   
-
-    .seleqt-tip {
-        display: grid;
-        grid-template-columns: 117px 117px 117px;
-}
-
-.result {
-    width: 413px;
-    height: 417px;
-    padding: 40px;
-}
-
-.reset {
-    width: 333px;
-    height: 80px;
-    margin: 147px 0 0;
-  
-}
-
+function changeBG(event) {
+  if (firstClick) {
+    clicked.classList.remove(`clicked`);
+  }
+  clicked = event.target;
+  clicked.classList.add("clicked");
+  firstClick = true;
 }
