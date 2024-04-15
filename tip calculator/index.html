@@ -1,59 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <Script src="./script.js" defer></Script>
-    <title>Tip Caculation</title>
-</head>
-<body>
-    <img class="logo" src="./images/logo.svg" alt="logo">
-
-    <div class="main">
-        <section class="calculation">
-            <div class="bill-amount">
-                <label class="label" for="bill">Bill</label>
-                <div class="bill-div">
-                <img class="dolar" src="./images/icon-dollar.svg" alt="$">
-                <input id="bill" type="number" placeholder="0.00">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png">
+    <title>Tip calculator</title>
+  </head>
+  <body>
+    <header id="logo"><img src="./images/logo.svg" alt="logo" /></header>
+    <main>
+      <div class="container">
+        <section class="input" id="colorless-section">
+          <div id="box-1">
+            <img class="icon" src="./images/icon-dollar.svg" alt="" />
+            <h4>Bill</h4>
+            <div class="input-div">
+              <input
+                oninput="error(), calcTip()"
+                class="inputs"
+                id="bill"
+                type="number"
+                placeholder="0"
+              />
+              <p id="red-text1"></p>
             </div>
+          </div>
+          <div id="box-2">
+            <h4>Select Tip %</h4>
+            <div id="tips">
+              <button id="tip5" value="5" class="tip white-text">5%</button>
+              <button id="tip10" value="10" class="tip white-text">10%</button>
+              <button id="tip15" value="15" class="tip white-text">15%</button>
+              <button id="tip25" value="25" class="tip white-text">25%</button>
+              <button id="tip50" value="50" class="tip white-text">50%</button>
+              <input
+                id="tip-input"
+                type="number"
+                placeholder="Custom"
+                required
+                class="tip">
             </div>
-            
-            <h2 class="label label1">Select Tip %</h2>
-            <div class="seleqt-tip">
-                <button class="tip">5%</button>
-                <button class="tip">10%</button>
-                <button class="tip">15%</button>
-                <button class="tip">25%</button>
-                <button class="tip">50%</button>
-                <input id="inputTip" type="number" placeholder="Custom">
+          </div>
+          <div id="box-3">
+            <img class="icon" src="./images/icon-person.svg" alt="" />
+            <h4>Num. of People</h4>
+            <div class="input-div">
+              <input
+                oninput="error(), calcTip()"
+                class="inputs"
+                id="people"
+                type="number"
+                step="1"
+                placeholder="0">
+              <p id="red-text2"></p>
             </div>
-            <div class="number-of-people">
-                <label class="label" for="number-of-people">Number of people</label>
-                <div class="people-div">
-                <img class="person" src="./images/icon-person.svg" alt="person">
-                <input id="people" type="number" placeholder="0">
-            </div>
-            </div>            
+          </div>
         </section>
-            
-        <section class="result">
-            <div class="amount">
-                <p>Tip Amount <br> <span>/ person</span></p>
-                <h2>$<span id="tip-amount">0.00</span></h2>
+        <section class="output" id="green-section">
+          <div id="box-4">
+            <div id="header">
+              <h4 class="white-text">Tip Amount</h4>
+              <p>/ person</p>
             </div>
-
-            <div class="total">
-                <p>total <br> <span>/ person</span></p>
-                <h2>$<span id="total-amount">0.00</span></h2>
+            <div>
+              <h1 id="valuetip">$0.00</h1>
             </div>
-
-            <button class="reset">RESET</button>
+          </div>
+          <div id="box-5">
+            <div id="header">
+              <h4 class="white-text">Total</h4>
+              <p>/ person</p>
+            </div>
+            <div>
+              <h1 id="valuetotal">$0.00</h1>
+            </div>
+          </div>
+          <div id="box-6">
+            <button onclick="reset()" id="reset">Reset</button>
+          </div>
         </section>
-
-
-    </div>
-</body>
+      </div>
+    </main>
+    <footer>
+      <div class="attribution">
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
 </html>
