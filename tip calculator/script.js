@@ -1,83 +1,107 @@
-let billInput = document.querySelector(".bill");
-let peopleInput = document.querySelector(".people");
-let buttons = document.querySelectorAll(".select-btn button");
-let customInput = document.getElementById("custom-tip");
-let tipAmount = document.querySelector("#tip");
-let getTotal = document.querySelector("#total");
-console.log("CUSTOM INPUT: ", customInput);
+const bill = document.getElementById("bill")
+const tip = Array.from(document.getElementsByClassName("tip"))
+const people = document.getElementById("people")
+const tipAmount = document.getElementById("tip-amount")
+const totalAmount = document.getElementById("total-amount")
+const resetButton = document.getElementsByClassName("reset")
+const custom = document.getElementById("inputTip")
 
-let reset = document.querySelector(".reset");
+let billValue = 0
+let tipValue = 0
+let peopleInput = 0
 
-let billValue = 0;
-billInput.addEventListener("input", function () {
-  billValue = parseInt(billInput.value);
-  console.log("Bill:", billValue);
-  calculate();
-});
 
-let peopleValue = 1;
-peopleInput.addEventListener("input", function () {
-  peopleValue = parseInt(peopleInput.value);
-  console.log("Number of People:", peopleValue);
-  calculate();
-});
+custom.addEventListener("input", (event) => {
+    tipValue = Number(event.target.value);
+    tip.forEach((btn)=>{
+    btn.style.color = "#fff";
+    btn.style.backgroundColor = "#00474b";
+    })
+    tipAmaount()
+})
 
-reset.addEventListener("click", function () {
-  billInput.value = 0;
-  peopleInput.value = 1;
+bill.addEventListener("input", (event) => {
+  
+    billValue = Number(event.target.value)
+    // console.log (typeof billValue)
+    tipAmaount()
+})
+tip.forEach((button)=>{ 
+    active = null 
+    
+button.addEventListener("click", (event)=>{
+    if (active == null) {
+tipValue = parseInt(event.target.innerText);
 
-  buttons.forEach((btn) => {
-    btn.style.backgroundColor = "";
-  });
+button.style.color = "#00474b";
+button.style.backgroundColor = "#9fe8df"
+active = button
+custom.value = "";
+tipAmaount()
 
-  customInput.value = 0;
-  tipAmount.textContent = `$0.00`;
-  getTotal.textContent = `$0.00`;
-});
+   } else if (active != event){
+    
+    tipValue = parseInt(event.target.innerText);
+    active.style.color = "#fff";
+    active.style.backgroundColor = "#00474b";
 
-let percentValue = 0;
-buttons.forEach((button) => {
-  button.addEventListener("click", function (event) {
-    event.preventDefault();
+    button.style.color = "#00474b";
+    button.style.backgroundColor = "#9fe8df"
 
-    buttons.forEach((btn) => {
-      btn.style.backgroundColor = "";
-    });
+    active = button
+    custom.value = "";
+    tipAmaount()
 
-    button.style.backgroundColor = "#26c2ae";
+   } else { 
 
-    percentValue = parseInt(event.target.textContent);
-    console.log("Button clicked:", percentValue);
-    calculate();
-  });
-});
+    tipValue = parseInt(event.target.innerText);
+    button.style.color = "#00474b";
+    button.style.backgroundColor = "#9fe8df"
+    active = null
+    custom.value = "";
+    tipAmaount()
+   }
+    })
 
-customInput.addEventListener("change", (event) => {
-  percentValue = Number(event.target.value);
-  calculate();
-});
+})
 
-function calculate() {
-  let tip =
-    (parseInt(billInput.value) * percentValue) /
-    100 /
-    parseInt(peopleInput.value);
+people.addEventListener("input", (event)=>{
+    peopleInput = Number(event.target.value)
+    // console.log(peopleInput)
+    tipAmaount()
+})
 
-  let total = parseInt(billInput.value) / parseInt(peopleInput.value) + tip;
-  console.log(
-    "billValue is: ",
-    parseInt(billInput.value),
-    "tip is: ",
-    tip,
-    "peopleValue is :",
-    peopleValue
-  );
-  console.log(percentValue);
-  if (billInput.value && peopleInput.value && percentValue && tip != Infinity) {
-    tipAmount.textContent = `$${tip.toFixed(2)}`;
-    getTotal.textContent = `$${total.toFixed(2)}`;
-  } else {
-    tipAmount.textContent = `$0.00`;
-    getTotal.textContent = `$0.00`;
-  }
+function tipAmaount(){
+    if (peopleInput !=0) {
+        
+        let resulTip = (billValue * tipValue/100)/peopleInput
+        let resulrTotal = resulTip+billValue/peopleInput
+        
+        tipAmount.innerText = `${resulTip.toFixed(2)}`;
+        totalAmount.innerText = `${resulrTotal.toFixed(2)}`;
+    } 
+    
+    else {
+        tipAmount.innerText = "0.00";
+        totalAmount.innerText = "0.00";
+    }
 }
+resetButton[0].addEventListener("click", ()=>{
+
+    billValue = 0
+    tipValue = 0
+    peopleInput = 0
+
+    tipAmount.innerText = "0.00";
+    totalAmount.innerText = "0.00";
+   
+
+    bill.value = "";
+    people.value = "";
+    custom.value = "";
+
+    tip.forEach ((btn)=>{
+    btn.style.color = "#fff";
+    btn.style.backgroundColor = "#00474b";
+})
+})
