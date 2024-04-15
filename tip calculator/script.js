@@ -1,107 +1,88 @@
-const bill = document.getElementById("bill")
-const tip = Array.from(document.getElementsByClassName("tip"))
-const people = document.getElementById("people")
-const tipAmount = document.getElementById("tip-amount")
-const totalAmount = document.getElementById("total-amount")
-const resetButton = document.getElementsByClassName("reset")
-const custom = document.getElementById("inputTip")
+`use strict`;
+let bill;
+let people;
+let tipAmount;
+let total;
+let percentboxes = document.querySelectorAll(`.tip`);
+let firstClick = false;
+let clicked;
+let tipPercent;
 
-let billValue = 0
-let tipValue = 0
-let peopleInput = 0
-
-
-custom.addEventListener("input", (event) => {
-    tipValue = Number(event.target.value);
-    tip.forEach((btn)=>{
-    btn.style.color = "#fff";
-    btn.style.backgroundColor = "#00474b";
-    })
-    tipAmaount()
-})
-
-bill.addEventListener("input", (event) => {
-  
-    billValue = Number(event.target.value)
-    // console.log (typeof billValue)
-    tipAmaount()
-})
-tip.forEach((button)=>{ 
-    active = null 
-    
-button.addEventListener("click", (event)=>{
-    if (active == null) {
-tipValue = parseInt(event.target.innerText);
-
-button.style.color = "#00474b";
-button.style.backgroundColor = "#9fe8df"
-active = button
-custom.value = "";
-tipAmaount()
-
-   } else if (active != event){
-    
-    tipValue = parseInt(event.target.innerText);
-    active.style.color = "#fff";
-    active.style.backgroundColor = "#00474b";
-
-    button.style.color = "#00474b";
-    button.style.backgroundColor = "#9fe8df"
-
-    active = button
-    custom.value = "";
-    tipAmaount()
-
-   } else { 
-
-    tipValue = parseInt(event.target.innerText);
-    button.style.color = "#00474b";
-    button.style.backgroundColor = "#9fe8df"
-    active = null
-    custom.value = "";
-    tipAmaount()
-   }
-    })
-
-})
-
-people.addEventListener("input", (event)=>{
-    peopleInput = Number(event.target.value)
-    // console.log(peopleInput)
-    tipAmaount()
-})
-
-function tipAmaount(){
-    if (peopleInput !=0) {
-        
-        let resulTip = (billValue * tipValue/100)/peopleInput
-        let resulrTotal = resulTip+billValue/peopleInput
-        
-        tipAmount.innerText = `${resulTip.toFixed(2)}`;
-        totalAmount.innerText = `${resulrTotal.toFixed(2)}`;
-    } 
-    
-    else {
-        tipAmount.innerText = "0.00";
-        totalAmount.innerText = "0.00";
-    }
+function addError(x, y) {
+  document.querySelector(x).textContent = `Cant be zero...`;
+  document.querySelector(y).style.border = `2px red solid`;
 }
-resetButton[0].addEventListener("click", ()=>{
+function removeError(x, y) {
+  document.querySelector(x).textContent = ``;
+  document.querySelector(y).style.border = `none`;
+}
+for (let i = 0; i < percentboxes.length - 1; i++) {
+  percentboxes[i].addEventListener(`click`, (event) => {
+    document.querySelector(`#tip-input`).value = "";
 
-    billValue = 0
-    tipValue = 0
-    peopleInput = 0
+    tipPercent = Number(event.target.value);
+    calcTip();
+    changeBG(event);
+  });
+}
 
-    tipAmount.innerText = "0.00";
-    totalAmount.innerText = "0.00";
-   
+document.querySelector(`#tip-input`).addEventListener(`input`, (event) => {
+  if (firstClick) {
+    clicked.classList.remove(`clicked`);
+  }
+  tipPercent = Number(event.target.value);
+  calcTip();
+});
+function calcTip() {
+  bill = Number(document.querySelector(`#bill`).value);
+  people = Math.floor(Number(document.querySelector(`#people`).value));
+  document.querySelector(`#people`).value = people;
+  error();
+  if (bill > 0 && people > 0) {
+    if (tipPercent > 0 && tipPercent <= 100) {
+      let tip = (bill * tipPercent) / 100;
+      tipAmount = (tip / people).toFixed(3);
+      total = ((bill + tip) / people).toFixed(3);
+      document.querySelector(`#valuetip`).textContent = `$` + tipAmount;
+      document.querySelector(`#valuetotal`).textContent = `$` + total;
+    }
+  }
+}
 
-    bill.value = "";
-    people.value = "";
-    custom.value = "";
+function reset() {
+  document.querySelector(`#bill`).value = ``;
+  document.querySelector(`#people`).value = ``;
+  document.querySelector(`#tip-input`).value = ``;
+  document.querySelector(`#valuetip`).textContent = `$0.00`;
+  document.querySelector(`#valuetotal`).textContent = `$0.00`;
+  if (firstClick) {
+    clicked.classList.remove(`clicked`);
+  }
+  firstClick = false;
+  removeError("#red-text1", "#bill");
+  removeError("#red-text2", "#people");
+}
 
-    tip.forEach ((btn)=>{
-    btn.style.color = "#fff";
-    btn.style.backgroundColor = "#00474b";
-})
-})
+function error() {
+  bill = Number(document.querySelector(`#bill`).value);
+  people = Number(document.querySelector(`#people`).value);
+  if (bill <= 0) {
+    addError("#red-text1", "#bill");
+  } else if (bill > 0) {
+    removeError("#red-text1", "#bill");
+  }
+  if (people == 0) {
+    addError("#red-text2", "#people");
+  } else if (people > 0) {
+    removeError("#red-text2", "#people");
+  }
+}
+
+function changeBG(event) {
+  if (firstClick) {
+    clicked.classList.remove(`clicked`);
+  }
+  clicked = event.target;
+  clicked.classList.add("clicked");
+  firstClick = true;
+}
