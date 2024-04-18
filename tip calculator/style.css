@@ -1,88 +1,231 @@
-`use strict`;
-let bill;
-let people;
-let tipAmount;
-let total;
-let percentboxes = document.querySelectorAll(`.tip`);
-let firstClick = false;
-let clicked;
-let tipPercent;
-
-function addError(x, y) {
-  document.querySelector(x).textContent = `Cant be zero...`;
-  document.querySelector(y).style.border = `2px red solid`;
+:root {
+  /*colors*/
+  --body-bg: #c5e4e7;
+  --input-cl: #f3f9fa;
+  --buttons-cl: #00474b;
+  --hover-cl: #26c2ae;
+  --clicked-cl: #9fe8df;
+  --titles-cl: #5e7a7d;
+  --empty-reset: #0d686d;
+  --dark-p: #7f9d9f;
 }
-function removeError(x, y) {
-  document.querySelector(x).textContent = ``;
-  document.querySelector(y).style.border = `none`;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-for (let i = 0; i < percentboxes.length - 1; i++) {
-  percentboxes[i].addEventListener(`click`, (event) => {
-    document.querySelector(`#tip-input`).value = "";
-
-    tipPercent = Number(event.target.value);
-    calcTip();
-    changeBG(event);
-  });
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  max-width: 375px;
+  margin: 0 auto;
+  background-color: var(--body-bg);
+  font-family: Space Mono;
+}
+#logo {
+  margin: 50px auto 40px auto;
+}
+.container {
+  background-color: white;
+  border-radius: 25px;
+  padding-bottom: 20px;
+}
+#colorless-section {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+h4 {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--titles-cl);
+  margin-bottom: 6px;
+}
+.inputs {
+  width: 311px;
+  height: 48px;
+  background-color: var(--input-cl);
+  border: none;
+  border-radius: 5px;
+  text-align: end;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: space mono;
+  color: var(--buttons-cl);
+  cursor: pointer;
+}
+::placeholder {
+  opacity: 35%;
+  margin-right: 18px;
+}
+.icon {
+  position: relative;
+  top: 65px;
+  left: 15px;
+}
+#tips {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  row-gap: 16px;
+}
+.white-text {
+  color: white;
+}
+.tip {
+  width: 147px;
+  height: 48px;
+  border: none;
+  border-radius: 5px;
+  font-weight: 700;
+  font-size: 24px;
+  font-family: space mono;
+  background-color: var(--buttons-cl);
+  cursor: pointer;
+}
+.tip:hover {
+  background-color: var(--clicked-cl);
+}
+.clicked {
+  background-color: var(--hover-cl);
+}
+.red-border {
+  outline: 2px red solid;
+}
+#red-text1,
+#red-text2 {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0px;
+  text-align: right;
+  color: red;
+  display: inline-block;
+}
+#tip-input {
+  background-color: var(--input-cl);
+  text-align: right;
+  color: var(--buttons-cl);
 }
 
-document.querySelector(`#tip-input`).addEventListener(`input`, (event) => {
-  if (firstClick) {
-    clicked.classList.remove(`clicked`);
-  }
-  tipPercent = Number(event.target.value);
-  calcTip();
-});
-function calcTip() {
-  bill = Number(document.querySelector(`#bill`).value);
-  people = Math.floor(Number(document.querySelector(`#people`).value));
-  document.querySelector(`#people`).value = people;
-  error();
-  if (bill > 0 && people > 0) {
-    if (tipPercent > 0 && tipPercent <= 100) {
-      let tip = (bill * tipPercent) / 100;
-      tipAmount = (tip / people).toFixed(3);
-      total = ((bill + tip) / people).toFixed(3);
-      document.querySelector(`#valuetip`).textContent = `$` + tipAmount;
-      document.querySelector(`#valuetotal`).textContent = `$` + total;
-    }
-  }
+#green-section {
+  background-color: var(--buttons-cl);
+  width: 327px;
+  height: 257px;
+  margin: 32px auto;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+p {
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--dark-p);
+}
+h1 {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 48px;
+  text-align: right;
+  color: var(--hover-cl);
+}
+.output,
+.input {
+  overflow: auto;
+}
+#box-4,
+#box-5 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 282px;
+  margin: 0 auto;
+}
+#box-4 {
+  margin-top: 40px;
+}
+#box-6 {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+#reset {
+  width: 282px;
+  height: 48px;
+  background-color: var(--empty-reset);
+  border: none;
+  border-radius: 5px;
+  margin: 0 auto;
+  color: var(--buttons-cl);
+  cursor: pointer;
+}
+#reset:hover {
+  background-color: var(--hover-cl);
+}
+#reset:active {
+  background-color: var(--clicked-cl);
 }
 
-function reset() {
-  document.querySelector(`#bill`).value = ``;
-  document.querySelector(`#people`).value = ``;
-  document.querySelector(`#tip-input`).value = ``;
-  document.querySelector(`#valuetip`).textContent = `$0.00`;
-  document.querySelector(`#valuetotal`).textContent = `$0.00`;
-  if (firstClick) {
-    clicked.classList.remove(`clicked`);
-  }
-  firstClick = false;
-  removeError("#red-text1", "#bill");
-  removeError("#red-text2", "#people");
+footer {
+  width: 90%;
+  margin: 20px auto;
+  border-radius: 5px;
+  text-align: center;
+  font-family: space mono;
 }
-
-function error() {
-  bill = Number(document.querySelector(`#bill`).value);
-  people = Number(document.querySelector(`#people`).value);
-  if (bill <= 0) {
-    addError("#red-text1", "#bill");
-  } else if (bill > 0) {
-    removeError("#red-text1", "#bill");
-  }
-  if (people == 0) {
-    addError("#red-text2", "#people");
-  } else if (people > 0) {
-    removeError("#red-text2", "#people");
-  }
+.attribution {
+  color: var(--buttons-cl);
 }
-
-function changeBG(event) {
-  if (firstClick) {
-    clicked.classList.remove(`clicked`);
+a {
+  text-decoration: none;
+  color: var(--empty-reset);
+}
+a:hover {
+  color: var(--hover-cl);
+}
+@media only screen and (min-width: 1200px) {
+  body {
+    max-width: 920px;
   }
-  clicked = event.target;
-  clicked.classList.add("clicked");
-  firstClick = true;
+  .container {
+    display: flex;
+    align-items: center;
+  }
+  #colorless-section {
+    width: 50%;
+  }
+  #green-section {
+    width: 413px;
+    height: 417px;
+    justify-content: flex-start;
+  }
+  #box-1,
+  #box-3 {
+    margin-top: -20px;
+  }
+  #tips {
+    width: 379px;
+  }
+  .inputs {
+    width: 379px;
+  }
+  .tip {
+    width: 117px;
+  }
+  h1 {
+    font-size: 48px;
+    line-height: 71px;
+  }
+  #box-5 {
+    padding-top: 25px;
+    padding-bottom: 122px;
+  }
 }
