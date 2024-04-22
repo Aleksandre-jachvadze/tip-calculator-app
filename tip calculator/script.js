@@ -1,4 +1,4 @@
-`use strict`;
+"use strict";
 let bill;
 let people;
 let tipAmount;
@@ -9,13 +9,15 @@ let clicked;
 let tipPercent;
 
 function addError(x, y) {
-  document.querySelector(x).textContent = `Cant be zero...`;
+  document.querySelector(x).textContent = `Can't be zero...`;
   document.querySelector(y).style.border = `2px red solid`;
 }
+
 function removeError(x, y) {
   document.querySelector(x).textContent = ``;
   document.querySelector(y).style.border = `none`;
 }
+
 for (let i = 0; i < percentboxes.length - 1; i++) {
   percentboxes[i].addEventListener(`click`, (event) => {
     document.querySelector(`#tip-input`).value = "";
@@ -33,6 +35,15 @@ document.querySelector(`#tip-input`).addEventListener(`input`, (event) => {
   tipPercent = Number(event.target.value);
   calcTip();
 });
+
+document.querySelector(`#bill`).addEventListener(`input`, (event) => {
+  calcTip();
+});
+
+document.querySelector(`#people`).addEventListener(`input`, (event) => {
+  calcTip();
+});
+
 function calcTip() {
   bill = Number(document.querySelector(`#bill`).value);
   people = Math.floor(Number(document.querySelector(`#people`).value));
